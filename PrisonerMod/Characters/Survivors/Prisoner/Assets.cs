@@ -13,6 +13,7 @@ using UnityEngine.Rendering.PostProcessing;
 using PrisonerMod.Characters.Survivors.Prisoner.Misc;
 using PrisonerMod.Characters.Survivors;
 using PrisonerMod.Survivors.Prisoner;
+using PrisonerMod.Modules;
 
 namespace PrisonerMod
 {
@@ -24,8 +25,12 @@ namespace PrisonerMod
 
         public static GameObject defaultCrosshairPrefab;
 
+        public static GameObject heal;
+        public static GameObject healZone;
+
         internal static PrisonerSpellDef fireballSpellDef;
         internal static PrisonerSpellDef hollowPurpleSpellDef;
+        internal static PrisonerSpellDef healSpelLDef;
 
         internal static void PopulateAssets()
         {
@@ -45,7 +50,6 @@ namespace PrisonerMod
             //if (!Modules.Config.enableCrosshairDot.Value) defaultCrosshairPrefab.GetComponent<RawImage>().enabled = false;
             //if (dynamicCrosshair) defaultCrosshairPrefab.AddComponent<DynamicCrosshair>();
         }
-        
 
         internal static void InitSpellDefs()
         {
@@ -75,7 +79,22 @@ namespace PrisonerMod
                 // animationSet = DriverWeaponDef.AnimationSet.Default
             });
             PrisonerSpellCatalog.AddSpell(hollowPurpleSpellDef);
-            PrisonerSpellCatalog.Fireball = hollowPurpleSpellDef;
+            PrisonerSpellCatalog.HollowPurple = hollowPurpleSpellDef;
+
+            healSpelLDef = PrisonerSpellDef.CreateSpellDefFromInfo(new SpellDefInfo
+            {
+                nameToken = "PRISONER_HEAL_NAME",
+                descriptionToken = "PRISONER_HEAL_DESC",
+                //icon = Assets.pistolWeaponIcon,
+                crosshairPrefab = Assets.defaultCrosshairPrefab,
+                spellSkillDef = PrisonerSurvivor.healSkillDef,
+                // mesh = Assets.pistolMesh,
+                // material = Assets.pistolMat,
+                // animationSet = DriverWeaponDef.AnimationSet.Default
+            });
+            PrisonerSpellCatalog.AddSpell(healSpelLDef);
+            PrisonerSpellCatalog.Heal = healSpelLDef;
+
         }
         
     }

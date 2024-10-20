@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPurple
 {
@@ -13,7 +14,6 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
     {
         private protected float duration;
         private protected ChildLocator childLocator;
-        private protected GameObject chargeEffectInstance;
         public float baseDuration = 1.5f;
         public float minBloomRadius;
         public float maxBloomRadius;
@@ -24,13 +24,13 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
         {
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
-            childLocator = GetModelChildLocator();
+            this.childLocator = base.GetModelChildLocator();
             if (childLocator)
             {
                 Transform transform = childLocator.FindChild("MuzzleHollow") ?? characterBody.coreTransform;
-                if (transform && chargeEffectPrefab)
+                if (transform && this.chargeEffectPrefab)
                 {
-                    chargeEffectInstance = UnityEngine.Object.Instantiate(chargeEffectPrefab, transform.position, transform.rotation);
+                    chargeEffectInstance = UnityEngine.Object.Instantiate(this.chargeEffectPrefab, transform.position, transform.rotation);
                     chargeEffectInstance.transform.parent = transform;
                     ScaleParticleSystemDuration component = chargeEffectInstance.GetComponent<ScaleParticleSystemDuration>();
                     ObjectScaleCurve component2 = chargeEffectInstance.GetComponent<ObjectScaleCurve>();
@@ -44,44 +44,44 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
                     }
                 }
             }
-            PlayChargeAnimation();
-            loopSoundInstanceId = Util.PlayAttackSpeedSound(chargeSoundString, gameObject, attackSpeedStat);
-            if (crosshairOverridePrefab)
-            {
-                crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
-            }
-            StartAimMode(duration + 2f, false);
+            this.PlayChargeAnimation();
+            this.loopSoundInstanceId = Util.PlayAttackSpeedSound(this.chargeSoundString, base.gameObject, this.attackSpeedStat);
+            //if (crosshairOverridePrefab)
+            //{
+            //    crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
+            //}
+            base.StartAimMode(duration + 2f, false);
         }
 
         public override void OnExit()
         {
-            CrosshairUtils.OverrideRequest overrideRequest = crosshairOverrideRequest;
-            if (overrideRequest != null)
+            CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
+            //if (overrideRequest != null)
+            //{
+            //    overrideRequest.Dispose();
+            //}
+            AkSoundEngine.StopPlayingID(this.loopSoundInstanceId);
+            if (!this.outer.destroying)
             {
-                overrideRequest.Dispose();
+                //PlayAnimation("Gesture, Additive", EmptyStateHash);
             }
-            AkSoundEngine.StopPlayingID(loopSoundInstanceId);
-            if (!outer.destroying)
-            {
-                PlayAnimation("Gesture, Additive", EmptyStateHash);
-            }
-            Destroy(chargeEffectInstance);
+            EntityState.Destroy(this.chargeEffectInstance);
             base.OnExit();
         }
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            float num = CalcCharge();
-            if (isAuthority && (!IsKeyDownAuthority() && fixedAge >= minChargeDuration || fixedAge >= duration))
+            float num = this.CalcCharge();
+            if (isAuthority && (!base.IsKeyDownAuthority() && fixedAge >= minChargeDuration || fixedAge >= duration))
             {
-                BaseThrowHollow nextState = GetNextState();
+                BaseThrowHollow nextState = this.GetNextState();
                 nextState.charge = num;
-                outer.SetNextState(nextState);
+                this.outer.SetNextState(nextState);
             }
         }
         protected float CalcCharge()
         {
-            return Mathf.Clamp01(fixedAge / duration);
+            return Mathf.Clamp01(base.fixedAge / this.duration);
         }
         public override void Update()
         {
@@ -97,10 +97,12 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
         protected abstract BaseThrowHollow GetNextState();
         protected virtual void PlayChargeAnimation()
         {
-            base.PlayAnimation("Gesture, Additive", BaseChargeHollowState.ChargeNovaBombStateHash, BaseChargeHollowState.ChargeNovaBombParamHash, duration);
+            //base.PlayAnimation("Gesture, Additive", BaseChargeHollowState.ChargeNovaBombStateHash, BaseChargeHollowState.ChargeNovaBombParamHash, duration);
         }
 
-        public GameObject chargeEffectPrefab;
+        public GameObject chargeEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mage/ChargeMageLightningBomb.prefab").WaitForCompletion();
+        private protected GameObject chargeEffectInstance;
+
         public GameObject crosshairOverridePrefab;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
 

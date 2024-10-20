@@ -20,14 +20,14 @@ namespace PrisonerMod.Survivors.Prisoner
         {
             string prefix = PrisonerSurvivor.PRISONER_PREFIX;
 
-            string desc = "The Prisoner is a chaotic force of nature, sending uncontrollable energy at the rythm of the heart of the planet that watched them born.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine
-             + "< ! > " + Environment.NewLine + Environment.NewLine
-             + "< ! > " + Environment.NewLine + Environment.NewLine
-             + "< ! > " + Environment.NewLine + Environment.NewLine
-             + "< ! > " + Environment.NewLine + Environment.NewLine;
+            string desc = "The Prisoner is a chaotic force of nature, using uncontrolable energy to create spells to destroy their foes.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine
+             + "< ! > Prisoner requires practice. Don't put your hands down if you have lost a few runs." + Environment.NewLine + Environment.NewLine
+             + "< ! > Spell management is key. Waiting for the right moment to use the right spell can turn your run into a win." + Environment.NewLine + Environment.NewLine
+             + "< ! > Prisoner is frail. Use his big arsenal of options to evade every attack possible." + Environment.NewLine + Environment.NewLine
+             + "< ! > Build your Spellbook to your playstyle. You can make almost everything work if it fits how you play." + Environment.NewLine + Environment.NewLine;
 
-            string outro = "..and so he left, hoping to fulfill the desires of his Father.";
-            string outroFailure = "..and so he vanished, forever just a remnant of the vengeance they sought.";
+            string outro = "...and so he left, hoping to fulfill the desires of his Father.";
+            string outroFailure = "...and so he vanished, forever just a remnant of the vengeance they sought.";
 
             Language.Add(prefix + "NAME", "Prisoner");
             Language.Add(prefix + "DESCRIPTION", desc);
@@ -46,24 +46,18 @@ namespace PrisonerMod.Survivors.Prisoner
                 "If you fail a Concentration event, all your abilities enter in a X second cooldown.");
             #endregion
 
-            #region Primary
-            Language.Add(prefix + "PRIMARY_SLASH_NAME", "C001: Create");
-            Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Tokens.agilePrefix + $"Cast a spell from your spellslots.");
-            #endregion
+            #region Misc
+            Language.Add(prefix + "_PRISONER_BODY_CAST_NAME", "C001: Create");
+            Language.Add(prefix + "_PRISONER_BODY_CAST_DESC", Tokens.agilePrefix + $" Cast a spell from your spellslots.");
 
-            #region Secondary
-            Language.Add(prefix + "SECONDARY_GUN_NAME", "C002: Destroy");
-            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Delete a spell from your spellslots.");
-            #endregion
+            Language.Add(prefix + "_PRISONER_BODY_DELETE_NAME", "C002: Destroy");
+            Language.Add(prefix + "_PRISONER_BODY_DELETE_DESC", Tokens.agilePrefix + $" Delete a spell from your spellslots.");
 
-            #region Utility
-            Language.Add(prefix + "UTILITY_ROLL_NAME", "C003: Recover");
-            Language.Add(prefix + "UTILITY_ROLL_DESCRIPTION", "Invoke a Concentration event, and if you get Critical Conncentration, you enter into <style=cIsUtility>Flow</style> state.");
-            #endregion
+            Language.Add(prefix + "_PRISONER_BODY__NAME", "C003: Recover");
+            Language.Add(prefix + "_PRISONER_BODY__DESC", "");
 
-            #region Special
-            Language.Add(prefix + "SPECIAL_BOMB_NAME", "C004: Channel");
-            Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Channel the will of Petrichor V, and fill your Soul with power. Draw a spell into a spellslot.");
+            Language.Add(prefix + "_PRISONER_BODY_DRAW_NAME", "C004: Channel");
+            Language.Add(prefix + "_PRISONER_BODY_DRAW_DESC", $"Channel the will of Petrichor V, and fill your Soul with power. Enter Draw mode to fill one of your spellslots.");
             #endregion
 
             #region Achievements

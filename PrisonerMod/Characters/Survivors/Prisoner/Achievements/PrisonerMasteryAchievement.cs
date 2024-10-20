@@ -9,9 +9,7 @@ namespace PrisonerMod.Survivors.Prisoner.Achievements
     {
         public const string identifier = PrisonerSurvivor.PRISONER_PREFIX + "masteryAchievement";
         public const string unlockableIdentifier = PrisonerSurvivor.PRISONER_PREFIX + "masteryUnlockable";
-
         public override string RequiredCharacterBody => PrisonerSurvivor.instance.bodyName;
-
         //difficulty coeff 3 is monsoon. 3.5 is typhoon for grandmastery skins
         public override float RequiredDifficultyCoefficient => 3;
     }

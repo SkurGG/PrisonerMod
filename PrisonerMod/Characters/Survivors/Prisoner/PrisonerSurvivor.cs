@@ -35,6 +35,7 @@ namespace PrisonerMod.Survivors.Prisoner
         //spelldefs
         internal static SkillDef fireballSkillDef;
         internal static SkillDef hollowPurpleSkillDef;
+        internal static SkillDef healSkillDef;
 
 
 
@@ -272,7 +273,7 @@ namespace PrisonerMod.Survivors.Prisoner
                 skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_FIREBALL_NAME",
                 skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_FIREBALL_DESC",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(ThrowBomb)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(BaseThrowHollow)),
                 activationStateMachineName = "Weapon2", interruptPriority = EntityStates.InterruptPriority.Skill,
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -295,7 +296,31 @@ namespace PrisonerMod.Survivors.Prisoner
                 skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_HOLLOWPURPLE_NAME",
                 skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_HOLLOWPURPLE_DESC",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texBazookaIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(BaseChargeHollowState)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(ChargeHollow)),
+                activationStateMachineName = "Weapon2",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+
+            });
+
+            PrisonerSurvivor.healSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = PRISONER_PREFIX + "_PRISONER_BODY_HEAL_NAME",
+                skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_HEAL_NAME",
+                skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_HEAL_DESC",
+                skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(Heal)),
                 activationStateMachineName = "Weapon2",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
                 baseMaxStock = 1,

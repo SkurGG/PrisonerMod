@@ -5,6 +5,7 @@ using EntityStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPurple
 {
@@ -63,7 +64,6 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
             }
         }
 
-        // Token: 0x06000ED0 RID: 3792 RVA: 0x00015CF7 File Offset: 0x00013EF7
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;
@@ -71,52 +71,31 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
 
         protected virtual void PlayThrowAnimation()
         {
-            base.PlayAnimation("Gesture, Additive", BaseThrowHollow.FireNovaBombStateHash, BaseThrowHollow.FireNovaBombParamHash, duration);
+            //base.PlayAnimation("Gesture, Additive", BaseThrowHollow.FireNovaBombStateHash, BaseThrowHollow.FireNovaBombParamHash, duration);
         }
 
-        // Token: 0x06000ED2 RID: 3794 RVA: 0x0000221D File Offset: 0x0000041D
         protected virtual void ModifyProjectile(ref FireProjectileInfo projectileInfo)
         {
         }
 
-        // Token: 0x0400118F RID: 4495
         [SerializeField]
-        public GameObject projectilePrefab;
-
-        // Token: 0x04001190 RID: 4496
+        public GameObject projectilePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mage/MageLightningBombProjectile.prefab.prefab").WaitForCompletion(); 
         [SerializeField]
-        public GameObject muzzleflashEffectPrefab;
-
-        // Token: 0x04001191 RID: 4497
+        public GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mage/MuzzleflashMageLightningLarge.prefab").WaitForCompletion();
         [SerializeField]
         public float baseDuration;
-
-        // Token: 0x04001192 RID: 4498
         [SerializeField]
         public float minDamageCoefficient;
-
-        // Token: 0x04001193 RID: 4499
         [SerializeField]
         public float maxDamageCoefficient;
-
-        // Token: 0x04001194 RID: 4500
         [SerializeField]
         public float force;
-
-        // Token: 0x04001195 RID: 4501
         [SerializeField]
         public float selfForce;
-
-        // Token: 0x04001196 RID: 4502
         protected float duration;
+        public float charge = 200f;
 
-        // Token: 0x04001197 RID: 4503
-        public float charge;
-
-        // Token: 0x04001198 RID: 4504
         private static int FireNovaBombStateHash = Animator.StringToHash("FireNovaBomb");
-
-        // Token: 0x04001199 RID: 4505
         private static int FireNovaBombParamHash = Animator.StringToHash("FireNovaBomb.playbackRate");
     }
 }

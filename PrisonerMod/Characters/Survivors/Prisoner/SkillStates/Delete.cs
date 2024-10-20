@@ -1,14 +1,13 @@
 ﻿using EntityStates;
 using PrisonerMod.Characters.Survivors.Prisoner.Misc;
-using PrisonerMod.Characters.Survivors.Prisoner.SkillStates.BaseState;
-using PrisonerMod.Survivors.Prisoner;
+using PrisonerMod.Characters.Survivors.Prisoner.SkillStates.PrisonerBaseState;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates
 {
-    internal class Cast : BasePrisonerSkillState
+    internal class Delete : BasePrisonerSkillState
     {
         public static float baseDuration = 0.6f;
         public static float firePercentTime = 0.0f;
@@ -28,13 +27,6 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates
             {
                 this.prisonerController.SetSkills();
             }
-        }
-
-        public override void OnExit()
-        {
-            this.prisonerController.spellSlots[skillpressed] = PrisonerSpellCatalog.EmptySpell;
-            this.prisonerController.UnsetSkills();
-            base.OnExit();
         }
 
         public override void FixedUpdate()
@@ -68,9 +60,15 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates
             }
         }
 
+        public override void OnExit()
+        {
+            this.prisonerController.spellSlots[skillpressed] = PrisonerSpellCatalog.EmptySpell;
+            this.prisonerController.UnsetSkills();
+            base.OnExit();
+        }
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Any;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

@@ -4,7 +4,7 @@ using PrisonerMod.Survivors.Prisoner;
 using PrisonerMod.Characters.Survivors.Prisoner.Components;
 using RoR2;
 using UnityEngine;
-using PrisonerMod.Characters.Survivors.Prisoner.SkillStates.BaseState;
+using PrisonerMod.Characters.Survivors.Prisoner.SkillStates.PrisonerBaseState;
 
 namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates
 {

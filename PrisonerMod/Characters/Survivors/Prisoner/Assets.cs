@@ -25,6 +25,7 @@ namespace PrisonerMod
         public static GameObject defaultCrosshairPrefab;
 
         internal static PrisonerSpellDef fireballSpellDef;
+        internal static PrisonerSpellDef hollowPurpleSpellDef;
 
         internal static void PopulateAssets()
         {
@@ -61,6 +62,20 @@ namespace PrisonerMod
             });
             PrisonerSpellCatalog.AddSpell(fireballSpellDef);
             PrisonerSpellCatalog.Fireball = fireballSpellDef;
+
+            hollowPurpleSpellDef = PrisonerSpellDef.CreateSpellDefFromInfo(new SpellDefInfo
+            {
+                nameToken = "PRISONER_HOLLOWPURPLE_NAME",
+                descriptionToken = "PRISONER_HOLLOWPURPLE_DESC",
+                //icon = Assets.pistolWeaponIcon,
+                crosshairPrefab = Assets.defaultCrosshairPrefab,
+                spellSkillDef = PrisonerSurvivor.hollowPurpleSkillDef,
+                // mesh = Assets.pistolMesh,
+                // material = Assets.pistolMat,
+                // animationSet = DriverWeaponDef.AnimationSet.Default
+            });
+            PrisonerSpellCatalog.AddSpell(hollowPurpleSpellDef);
+            PrisonerSpellCatalog.Fireball = hollowPurpleSpellDef;
         }
         
     }

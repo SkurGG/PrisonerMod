@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using PrisonerMod.Characters.Survivors.Prisoner.Components;
 using PrisonerMod.Survivors.Prisoner;
 using RoR2;
 using RoR2.Projectile;
@@ -37,6 +38,12 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells
             bloom = 10;
 
             base.OnEnter();
+        }
+
+        public override void OnExit()
+        {
+            GetComponent<PrisonerController>().UnsetSkills();
+            base.OnExit();
         }
 
         public override void FixedUpdate()

@@ -2,6 +2,7 @@
 using PrisonerMod.Characters.Survivors.Prisoner.Components;
 using PrisonerMod.Characters.Survivors.Prisoner.SkillStates;
 using PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells;
+using PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPurple;
 using PrisonerMod.Modules;
 using PrisonerMod.Modules.Characters;
 using PrisonerMod.Survivors.Prisoner.Components;
@@ -28,10 +29,12 @@ namespace PrisonerMod.Survivors.Prisoner
         //skill or
         internal static SkillDef drawSkillDef;
         internal static SkillDef castSkillDef;
+        internal static SkillDef deleteSkillDef;
         internal static SkillDef emptySpellSkillDef;
 
         //spelldefs
         internal static SkillDef fireballSkillDef;
+        internal static SkillDef hollowPurpleSkillDef;
 
 
 
@@ -155,7 +158,7 @@ namespace PrisonerMod.Survivors.Prisoner
 
             CreateSkills(bodyPrefab);
             Skills.AddPrimarySkills(bodyPrefab, castSkillDef);
-            Skills.AddSecondarySkills(bodyPrefab, emptySpellSkillDef);
+            Skills.AddSecondarySkills(bodyPrefab, deleteSkillDef);
             Skills.AddUtilitySkills(bodyPrefab, emptySpellSkillDef);
             Skills.AddSpecialSkills(bodyPrefab, drawSkillDef);
 
@@ -176,7 +179,31 @@ namespace PrisonerMod.Survivors.Prisoner
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Draw)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 1f,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                interruptPriority = EntityStates.InterruptPriority.Any,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = false,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+            });
+
+            PrisonerSurvivor.deleteSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = PRISONER_PREFIX + "_PRISONER_BODY_DELETE_NAME",
+                skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_DELETE_NAME",
+                skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_DELETE_DESC",
+                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(Delete)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -193,19 +220,18 @@ namespace PrisonerMod.Survivors.Prisoner
 
             PrisonerSurvivor.castSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = PRISONER_PREFIX + "_PRISONER_BODY_DRAW_NAME",
-                skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_DRAW_NAME",
-                skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_DRAW_DESC",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
+                skillName = PRISONER_PREFIX + "_PRISONER_BODY_CAST_NAME",
+                skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_CAST_NAME",
+                skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_CAST_DESC",
+                skillIcon = assetBundle.LoadAsset<Sprite>("texCastIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Cast)),
-                activationStateMachineName = "Weapon",
+                activationStateMachineName = "Weapon", interruptPriority = EntityStates.InterruptPriority.Any,
                 baseMaxStock = 1,
-                baseRechargeInterval = 1f,
+                baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
                 fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.Any,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = false,
                 mustKeyPress = false,
@@ -220,7 +246,7 @@ namespace PrisonerMod.Survivors.Prisoner
                 skillName = PRISONER_PREFIX + "_PRISONER_BODY_EMPTYSPELL_NAME",
                 skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_EMPTYSPELL_NAME",
                 skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_EMPTYSPELL_DESC",
-                skillIcon = assetBundle.LoadAsset<Sprite>("-"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texCancelIcon"),
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = false,
@@ -247,13 +273,13 @@ namespace PrisonerMod.Survivors.Prisoner
                 skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_FIREBALL_DESC",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
                 activationState = new EntityStates.SerializableEntityStateType(typeof(ThrowBomb)),
+                activationStateMachineName = "Weapon2", interruptPriority = EntityStates.InterruptPriority.Skill,
                 baseMaxStock = 1,
-                baseRechargeInterval = 1f,
+                baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
                 fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.Any,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
@@ -262,6 +288,31 @@ namespace PrisonerMod.Survivors.Prisoner
                 requiredStock = 1,
 
             });
+
+            PrisonerSurvivor.hollowPurpleSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = PRISONER_PREFIX + "_PRISONER_BODY_HOLLOWPURPLE_NAME",
+                skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_HOLLOWPURPLE_NAME",
+                skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_HOLLOWPURPLE_DESC",
+                skillIcon = assetBundle.LoadAsset<Sprite>("texBazookaIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(BaseChargeHollowState)),
+                activationStateMachineName = "Weapon2",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = true,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+
+            });
+
             #endregion
 
             PrisonerMod.Assets.InitSpellDefs();

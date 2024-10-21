@@ -10,7 +10,7 @@ using UnityEngine.AddressableAssets;
 
 namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPurple
 {
-    public abstract class BaseThrowHollow : BasePrisonerSkillState
+    public class BaseThrowHollow : BasePrisonerSkillState
     {
         public override void OnEnter()
         {

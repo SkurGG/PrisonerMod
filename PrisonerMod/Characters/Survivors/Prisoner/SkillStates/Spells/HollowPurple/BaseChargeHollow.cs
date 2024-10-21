@@ -10,7 +10,7 @@ using UnityEngine.AddressableAssets;
 
 namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPurple
 {
-    public abstract class BaseChargeHollowState : BasePrisonerSkillState
+    public class BaseChargeHollowState : BasePrisonerSkillState
     {
         private protected float duration;
         private protected ChildLocator childLocator;
@@ -98,7 +98,10 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
         {
             return InterruptPriority.PrioritySkill;
         }
-        protected abstract BaseThrowHollow GetNextState();
+        protected virtual BaseThrowHollow GetNextState()
+        {
+            return new BaseThrowHollow();
+        }
         protected virtual void PlayChargeAnimation()
         {
             //base.PlayAnimation("Gesture, Additive", BaseChargeHollowState.ChargeNovaBombStateHash, BaseChargeHollowState.ChargeNovaBombParamHash, duration);

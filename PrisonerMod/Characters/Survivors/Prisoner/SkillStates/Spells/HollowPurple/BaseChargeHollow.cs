@@ -74,15 +74,20 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
             float num = this.CalcCharge();
             if (isAuthority && (!base.IsKeyDownAuthority() && fixedAge >= minChargeDuration || fixedAge >= duration))
             {
+                Chat.AddMessage("Start nextstate");
                 BaseThrowHollow nextState = this.GetNextState();
                 nextState.charge = num;
                 this.outer.SetNextState(nextState);
+                Chat.AddMessage("End nextstate");
             }
         }
         protected float CalcCharge()
         {
             return Mathf.Clamp01(base.fixedAge / this.duration);
         }
+
+        public BaseChargeHollowState() : base() { }
+
         public override void Update()
         {
             base.Update();
@@ -93,7 +98,6 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
         {
             return InterruptPriority.PrioritySkill;
         }
-
         protected abstract BaseThrowHollow GetNextState();
         protected virtual void PlayChargeAnimation()
         {

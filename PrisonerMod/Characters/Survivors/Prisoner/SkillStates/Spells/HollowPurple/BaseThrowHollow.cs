@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EntityStates;
+using PrisonerMod.Characters.Survivors.Prisoner.SkillStates.PrisonerBaseState;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
@@ -9,17 +10,18 @@ using UnityEngine.AddressableAssets;
 
 namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPurple
 {
-    public abstract class BaseThrowHollow : BaseState
+    public abstract class BaseThrowHollow : BasePrisonerSkillState
     {
         public override void OnEnter()
         {
             base.OnEnter();
             duration = baseDuration / this.attackSpeedStat;
-            PlayThrowAnimation();
-            if (muzzleflashEffectPrefab)
-            {
-                EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, base.gameObject, "MuzzleHollow", false);
-            }
+            //PlayThrowAnimation();
+            //if (muzzleflashEffectPrefab)
+            //{
+            //    EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, base.gameObject, "MuzzleHollow", false);
+            //}
+            Chat.AddMessage("Before fire");
             Fire();
         }
         public override void FixedUpdate()
@@ -54,6 +56,7 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
                         crit = base.RollCrit()
                     };
                     ModifyProjectile(ref fireProjectileInfo);
+                    Chat.AddMessage("projectile created");
                     TrajectoryAimAssist.ApplyTrajectoryAimAssist(ref aimRay, ref fireProjectileInfo, 1f);
                     ProjectileManager.instance.FireProjectile(fireProjectileInfo);
                 }
@@ -64,6 +67,7 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
             }
         }
 
+        public BaseThrowHollow() : base() { } 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;
@@ -93,7 +97,7 @@ namespace PrisonerMod.Characters.Survivors.Prisoner.SkillStates.Spells.HollowPur
         [SerializeField]
         public float selfForce;
         protected float duration;
-        public float charge = 200f;
+        public float charge;
 
         private static int FireNovaBombStateHash = Animator.StringToHash("FireNovaBomb");
         private static int FireNovaBombParamHash = Animator.StringToHash("FireNovaBomb.playbackRate");

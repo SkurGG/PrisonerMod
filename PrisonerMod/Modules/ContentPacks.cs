@@ -1,6 +1,8 @@
-﻿using RoR2;
+﻿using PrisonerMod.Survivors.Prisoner;
+using RoR2;
 using RoR2.ContentManagement;
 using RoR2.Skills;
+using ShaderSwapper;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,6 +72,11 @@ namespace PrisonerMod.Modules {
 
         public System.Collections.IEnumerator FinalizeAsync(FinalizeAsyncArgs args)
         {
+            var upgradeStubbedShaders = PrisonerSurvivor.instance.assetBundle.UpgradeStubbedShadersAsync();
+            while (upgradeStubbedShaders.MoveNext())
+            {
+                yield return upgradeStubbedShaders.Current;
+            }
             args.ReportProgress(1f);
             yield break;
         }

@@ -11,8 +11,8 @@ namespace PrisonerMod.Survivors.Prisoner
             Modules.Content.AddEntityState(typeof(Draw));
             Modules.Content.AddEntityState(typeof(ChargeHollow));
             Modules.Content.AddEntityState(typeof(ThrowHollow));
-            Modules.Content.AddEntityState(typeof(BaseChargeHollowState));
-            Modules.Content.AddEntityState(typeof(BaseThrowHollow));
+            Modules.Content.AddEntityState(typeof(ChargeHollow));
+            Modules.Content.AddEntityState(typeof(ThrowHollow));
 
 
         }

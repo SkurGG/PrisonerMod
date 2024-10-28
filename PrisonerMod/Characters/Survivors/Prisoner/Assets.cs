@@ -27,6 +27,7 @@ namespace PrisonerMod
 
         public static GameObject heal;
         public static GameObject healZone;
+        public static GameObject hollowPurpleProjectile;
 
         internal static PrisonerSpellDef fireballSpellDef;
         internal static PrisonerSpellDef hollowPurpleSpellDef;
@@ -47,6 +48,7 @@ namespace PrisonerMod
             
 
             defaultCrosshairPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mage/MageCrosshair.prefab").WaitForCompletion().InstantiateClone("PrisonerDefaultCrosshair", false);
+
             //if (!Modules.Config.enableCrosshairDot.Value) defaultCrosshairPrefab.GetComponent<RawImage>().enabled = false;
             //if (dynamicCrosshair) defaultCrosshairPrefab.AddComponent<DynamicCrosshair>();
         }

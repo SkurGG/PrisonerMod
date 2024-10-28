@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1f11e30c50d7a784a90c427a38b90c05, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -124,97 +124,3 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &495590195217934695
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3252757704218978641, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_Avatar
-      value: 
-      objectReference: {fileID: 9000000, guid: 2a435b9f8455c774db384c23b4b1e7ef, type: 3}
-    - target: {fileID: 3252757704218978641, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.3269424
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6.2870975
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960323183190895688, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6279554391112392503, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: m_Name
-      value: mdlPrisoner
-      objectReference: {fileID: 0}
-    - target: {fileID: 8442167178886515859, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: transformPairs.Array.data[1].name
-      value: MeshA
-      objectReference: {fileID: 0}
-    - target: {fileID: 8442167178886515859, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: transformPairs.Array.data[2].name
-      value: MeshB
-      objectReference: {fileID: 0}
-    - target: {fileID: 8442167178886515859, guid: 370cae69fac378847b0f42b08335060d,
-        type: 3}
-      propertyPath: transformPairs.Array.data[3].name
-      value: MeshC
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 370cae69fac378847b0f42b08335060d, type: 3}

@@ -2,6 +2,7 @@
 using UnityEngine;
 using PrisonerMod.Modules;
 using System;
+using ShaderSwapper;
 using RoR2.Projectile;
 
 namespace PrisonerMod.Survivors.Prisoner
@@ -19,6 +20,7 @@ namespace PrisonerMod.Survivors.Prisoner
 
         //projectiles
         public static GameObject bombProjectilePrefab;
+        public static GameObject hollowPurpleProjectilePrefab;
 
         private static AssetBundle _assetBundle;
 
@@ -32,7 +34,9 @@ namespace PrisonerMod.Survivors.Prisoner
             CreateEffects();
 
             CreateProjectiles();
+
         }
+
 
         #region effects
         private static void CreateEffects()
@@ -66,15 +70,19 @@ namespace PrisonerMod.Survivors.Prisoner
         }
         #endregion effects
 
+
         #region projectiles
         private static void CreateProjectiles()
         {
+            AddAbsorbProjectile();
             CreateBombProjectile();
             Content.AddProjectilePrefab(bombProjectilePrefab);
+            Content.AddProjectilePrefab(hollowPurpleProjectilePrefab);
         }
 
         private static void CreateBombProjectile()
         {
+            hollowPurpleProjectilePrefab = _assetBundle.LoadAsset<GameObject>("HollowPurpleProjectile");
             //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
             bombProjectilePrefab = Asset.CloneProjectilePrefab("CommandoGrenadeProjectile", "HenryBombProjectile");
 
@@ -98,6 +106,23 @@ namespace PrisonerMod.Survivors.Prisoner
                 bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
             
             bombController.startSound = "";
+        }
+
+        private static void AddAbsorbProjectile()
+        {
+            hollowPurpleProjectilePrefab = _assetBundle.LoadAsset<GameObject>("HollowPurpleProjectile");
+            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
+
+            //remove their ProjectileImpactExplosion component and start from default values
+
+            hollowPurpleProjectilePrefab.AddComponent<PrisonerMod.AbsorbProjectileComponent.SlowDownProjectiles>();
+
+            ProjectileController hpController = hollowPurpleProjectilePrefab.GetComponent<ProjectileController>();
+
+            if (_assetBundle.LoadAsset<GameObject>("HollowPurpleGhost") != null)
+                hpController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HollowPurpleGhost");
+
+            hpController.startSound = "";
         }
         #endregion projectiles
     }

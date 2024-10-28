@@ -5,6 +5,8 @@ using RoR2;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
+using UnityEngine;
+using ShaderSwapper;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -29,6 +31,8 @@ namespace PrisonerMod
 
         public static PrisonerPlugin instance;
 
+        private static AssetBundle _assetBundle;
+
         void Awake()
         {
             instance = this;
@@ -44,6 +48,7 @@ namespace PrisonerMod
 
             // make a content pack and add it. this has to be last
             new Modules.ContentPacks().Initialize();
+
         }
     }
 }

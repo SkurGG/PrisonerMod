@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using ShaderSwapper;
 
 namespace PrisonerMod.Survivors.Prisoner
 {
@@ -19,7 +20,7 @@ namespace PrisonerMod.Survivors.Prisoner
     {
         public const string PRISONER_PREFIX = "_PRISONER_";
 
-        public override string assetBundleName => "prisonerBundle";
+        public override string assetBundleName => "prisonerbundle";
         public override string bodyName => "PrisonerBody"; 
         public override string masterName => "PrisonerMonsterMaster"; 
         public override string modelPrefabName => "mdlPrisoner";
@@ -36,6 +37,7 @@ namespace PrisonerMod.Survivors.Prisoner
         internal static SkillDef fireballSkillDef;
         internal static SkillDef hollowPurpleSkillDef;
         internal static SkillDef healSkillDef;
+
 
 
 
@@ -273,7 +275,7 @@ namespace PrisonerMod.Survivors.Prisoner
                 skillNameToken = PRISONER_PREFIX + "_PRISONER_BODY_FIREBALL_NAME",
                 skillDescriptionToken = PRISONER_PREFIX + "_PRISONER_BODY_FIREBALL_DESC",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
-                activationState = new EntityStates.SerializableEntityStateType(typeof(BaseThrowHollow)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(ThrowHollow)),
                 activationStateMachineName = "Weapon2", interruptPriority = EntityStates.InterruptPriority.Skill,
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
